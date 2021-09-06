@@ -1,0 +1,58 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>To-Do list</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        .container {
+        height: 110%;
+        justify-content: center;
+        align-items: center;
+        }
+    </style>
+    <script>
+        function valid(){
+        if (document.form.element.value == ""){
+        alert("Input cannot be empty!!");
+        return false;
+        }
+        }
+    </script>
+</head>
+<body style="background-color : cyan;">
+<div class="container">
+<form action = 'to_do' name="form" method="POST" onsubmit="return valid()">
+    {% csrf_token %}
+    <div class="form-group">
+      <div class="col-xs-3">
+        <input class="form-control" id="focusedInput" type="text" name = "element" placeholder="Enter your data here">
+      </div>
+    </div>
+    <div class="btn-group btn-group">
+        <button type="submit" class="btn btn-primary">Click to add</button>
+    </div>
+</form>
+    <div class="container">
+<ul>
+    {% for i in cont %}
+    <h3>
+    <li>
+        {{ i.desc }}
+    <form action = "delete/{{i.id}}" method="POST" style="display : inline;">
+        {% csrf_token %}
+        <div class="btn-group btn-group">
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </div>
+    </form>
+    </li>
+    </h3>
+    {% endfor %}
+</ul>
+        </div>
+</div>
+</body>
+</html>
